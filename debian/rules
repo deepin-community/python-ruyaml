@@ -1,4 +1,26 @@
 #!/usr/bin/make -f
+# -*- makefile -*-
+
+#export DH_VERBOSE = 1
+
+export PYBUILD_NAME=ruyaml
+export PYBUILD_BEFORE_TEST=cp -a {dir}/_test {build_dir}
+export PYBUILD_AFTER_TEST=rm -rf {build_dir}/_test
+
+include /usr/share/dpkg/pkg-info.mk
+
+BUILD_DATE  = $(shell LC_ALL=C date -u "+%d %B %Y" -d "@$(SOURCE_DATE_EPOCH)")
+SPHINXOPTS := -N -D html_last_updated_fmt="$(BUILD_DATE)"
 
 %:
-	dh $@
+	dh $@ --with python3 --buildsystem=pybuild
+
+override_dh_clean:
+	dh_clean
+	rm -rf .mypy_cache
+
+override_dh_sphinxdoc:
+ifeq (,$(findstring nodoc, $(DEB_BUILD_OPTIONS)))
+	PYTHONPATH=. python3 -m sphinx -b html $(SPHINXOPTS) _doc $(CURDIR)/debian/python-ruyaml-doc/usr/share/doc/python-ruyaml-doc/html
+	dh_sphinxdoc
+endif

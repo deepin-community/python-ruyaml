@@ -1,5 +1,20 @@
-template-repository (1.0-1) unstable; urgency=medium
+python-ruyaml (0.91.0-3) unstable; urgency=medium
 
-  * Initial release
+  * [a93b8d1] Rebuild patch queue from patch-queue branch
+    (Closes: #1058369)
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Mon, 01 Jan 2024 12:18:38 +0100
+
+python-ruyaml (0.91.0-2) unstable; urgency=medium
+
+  * Source only upload
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sat, 23 Sep 2023 13:33:13 +0200
+
+python-ruyaml (0.91.0-1) unstable; urgency=medium
+
+  * [e7632d5] New upstream version 0.91.0
+  * [69ac859] First and initial Debianization
+    (Closes: #1051758)
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Tue, 12 Sep 2023 13:41:31 +0530

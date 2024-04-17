@@ -1,0 +1,8 @@
+Document: python-ruyaml-doc
+Title: Python YAML package documentation
+Abstract: YAML 1.2 loader/dumper package for Python
+Section: Programming/Python
+
+Format: HTML
+Index: /usr/share/doc/python-ruyaml-doc/html/index.html
+Files: /usr/share/doc/python-ruyaml-doc/html/*.html
