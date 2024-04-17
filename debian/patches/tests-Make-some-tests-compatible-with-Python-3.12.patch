@@ -1,0 +1,75 @@
+From: Carsten Schoenert <c.schoenert@t-online.de>
+Date: Mon, 1 Jan 2024 12:16:27 +0100
+Subject: tests: Make some tests compatible with Python 3.12
+
+---
+ _test/test_comments.py | 11 +++++++++--
+ _test/test_issues.py   | 12 +++++++++---
+ 2 files changed, 18 insertions(+), 5 deletions(-)
+
+diff --git a/_test/test_comments.py b/_test/test_comments.py
+index 7973349..d67bd11 100644
+--- a/_test/test_comments.py
++++ b/_test/test_comments.py
+@@ -11,6 +11,7 @@ roundtrip changes
+ """
+ 
+ import pytest
++import sys
+ 
+ from .roundtrip import dedent, round_trip, round_trip_dump, round_trip_load
+ 
+@@ -576,7 +577,10 @@ class TestCommentedMapMerge:
+         )
+         assert data['x']['a'] == 1
+         assert data['y']['a'] == 1
+-        assert str(data['y']) == """ordereddict([('a', 1)])"""
++        if sys.version_info < (3, 12):
++            assert str(data['y']) == """ordereddict([('a', 1)])"""
++        else:
++            assert str(data['y']) == """ordereddict({'a': 1})"""
+ 
+     def test_issue_60_1(self):
+         data = round_trip_load(
+@@ -590,7 +594,10 @@ class TestCommentedMapMerge:
+         )
+         assert data['x']['a'] == 1
+         assert data['y']['a'] == 1
+-        assert str(data['y']) == """ordereddict([('b', 2), ('a', 1)])"""
++        if sys.version_info < (3, 12):
++            assert str(data['y']) == """ordereddict([('b', 2), ('a', 1)])"""
++        else:
++            assert str(data['y']) == """ordereddict({'b': 2, 'a': 1})"""
+ 
+ 
+ class TestEmptyLines:
+diff --git a/_test/test_issues.py b/_test/test_issues.py
+index 65efa95..7ee3a95 100644
+--- a/_test/test_issues.py
++++ b/_test/test_issues.py
+@@ -1,6 +1,7 @@
+ # coding: utf-8
+ 
+ import pytest  # NOQA
++import sys
+ 
+ from .roundtrip import (  # NOQA
+     YAML,
+@@ -28,9 +29,14 @@ class TestIssues:
+         )
+         data = round_trip_load(s)
+         assert str(data['comb']) == str(data['def'])
+-        assert (
+-            str(data['comb']) == "ordereddict([('key', 'value'), ('key1', 'value1')])"
+-        )
++        if sys.version_info < (3, 12):
++            assert (
++                str(data['comb']) == "ordereddict([('key', 'value'), ('key1', 'value1')])"
++            )
++        else:
++            assert (
++                str(data['comb']) == "ordereddict({'key': 'value', 'key1': 'value1'})"
++            )
+ 
+     def test_issue_82(self, tmpdir):
+         program_src = r'''

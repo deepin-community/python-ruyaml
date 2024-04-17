@@ -1,0 +1,22 @@
+From: Carsten Schoenert <c.schoenert@t-online.de>
+Date: Tue, 12 Sep 2023 12:57:44 +0530
+Subject: docs: Drop external graphic in index.rst
+
+The badge about the build status for the documentation isn't needed.
+
+Forwarded: Not-Needed
+---
+ _doc/index.rst | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/_doc/index.rst b/_doc/index.rst
+index 0324eff..83dd9ef 100644
+--- a/_doc/index.rst
++++ b/_doc/index.rst
+@@ -22,6 +22,3 @@ Contents:
+     pyyaml
+     contributing
+     upmerge
+-
+-.. image:: https://readthedocs.org/projects/ruyaml/badge/?version=stable
+-    :target: https://ruyaml.readthedocs.org/en/stable
